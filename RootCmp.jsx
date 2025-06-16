@@ -1,3 +1,4 @@
+import { AppHeader } from "./components/AppHeader.jsx"
 import { About } from "./pages/About.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { Home } from "./pages/Home.jsx"
@@ -10,7 +11,7 @@ export function RootCmp() {
 
     return (
         <section className="app">
-
+            <AppHeader onSetPage={page => setPage(page)} />
             <main>
                 {page == 'home' && <Home />}
                 {page == 'about' && <About />}
