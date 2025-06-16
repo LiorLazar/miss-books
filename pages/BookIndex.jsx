@@ -1,3 +1,4 @@
+import { BookFilter } from "../components/BookFilter.jsx"
 import { BookList } from "../components/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 
@@ -41,6 +42,10 @@ export function BookIndex() {
         <section className="book-index">
             {!selectedBookId &&
                 <Fragment>
+                    <BookFilter
+                        defaultFilter={filterBy}
+                        onSetFilter={onSetFilter}
+                    />
                     <BookList
                         books={books}
                         onRemoveBook={onRemoveBook}
