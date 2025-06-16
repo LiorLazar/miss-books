@@ -1,3 +1,4 @@
+import { BookPreview } from "../components/BookPreview.jsx"
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
@@ -10,26 +11,36 @@ export function BookDetails({ bookId, onBack }) {
         loadBook()
     }, [])
 
-
     function loadBook() {
         bookService.get(bookId)
-            .then(setBook)
+            .then(book => {
+                book.listPrice.isOnSale = true
+                setBook(book)
+            })
             .catch(err => {
                 console.log('err:', err)
             })
     }
 
     if (!book) return <div>Loading...</div>
-    const { vendor, speed } = book
+    // const { vendor, speed } = book
     return (
         <section className="book-details container">
-            <h1>Book Vendor: {vendor}</h1>
-            <h1>Book Speed: {speed}</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dolorum aliquam quibusdam corrupti? Minus, ad tenetur!
-            </p>
-            <img src={`../assets/img/${vendor}.png`} alt="Car Image" />
+            <pre>{JSON.stringify(book, null, 2)}</pre>
+            {book.listPrice.isOnSale && <span>On Sale</span>}
+            <BookPreview book={book} />
+            <p>{book.description}</p>
+
+            <section>
+                <h4>Authors:</h4>
+                <ul>
+                    {book.authors.map(author => <li>{author}</li>)}
+                </ul>
+            </section>
+
+            <p>Published Date: {book.publishedDate}</p>
+            <p>Page Count: {book.pageCount}</p>
+            <p>Price: {book.listPrice.amount}</p>
             <button onClick={onBack}>Back</button>
         </section>
     )
