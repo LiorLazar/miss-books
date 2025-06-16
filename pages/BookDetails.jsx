@@ -23,37 +23,47 @@ export function BookDetails({ bookId, onBack }) {
     }
 
     function getPageCountDesc(pageCount) {
-        if (pageCount < 100) return `light Reading ${pageCount}`
-        if (pageCount > 200) return `Descent Reading ${pageCount}`
         if (pageCount > 500) return `Serious Reading ${pageCount}`
+        if (pageCount > 200) return `Descent Reading ${pageCount}`
+        if (pageCount < 100) return `Light Reading ${pageCount}`
     }
 
-    function getPublishedDate(publishedDate) {
+    function getPublishDate(publishedDate) {
         const diff = new Date().getFullYear() - publishedDate
 
-        if (diff > 20) return `Vintage ${publishedDate}`
-        return `New ${publishedDate}`
+        if (diff > 10) return `Vintage ${publishedDate}`
+        else return `New ${publishedDate}`
+
     }
+
+    function getPriceClass(amount) {
+        if (amount > 150) return 'red'
+        if (amount < 20) return 'green'
+
+    }
+    //     amount > 150 - red
+    // - amount < 20 - gree
 
     if (!book) return <div>Loading...</div>
     // const { vendor, speed } = book
     return (
         <section className="book-details container">
-            <pre>{JSON.stringify(book, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
+
             {book.listPrice.isOnSale && <span>On Sale</span>}
             <BookPreview book={book} />
             <p>{book.description}</p>
 
             <section>
-                <h4>Authors:</h4>
+                <h4>Authors</h4>
                 <ul>
                     {book.authors.map(author => <li key={author}>{author}</li>)}
                 </ul>
             </section>
 
-            <p>Published Date: {getPublishedDate(book.publishedDate)}</p>
+            <p>Published Date: {getPublishDate(book.publishedDate)}</p>
             <p>Page Count: {getPageCountDesc(book.pageCount)}</p>
-            <p>Price: {book.listPrice.amount}</p>
+            <p>Price: <span className={`book-price ${getPriceClass(book.listPrice.amount)}`}>{book.listPrice.amount}</span></p>
             <button onClick={onBack}>Back</button>
         </section>
     )

@@ -19,3 +19,21 @@
     display: block;
     margin: auto;
 }
+
+/* .book-price.red {
+    color: red;
+}
+
+.book-price.green {
+    color: green;
+} */
+
+.book-price {
+    &.red {
+        color: red;
+    }
+
+    &.green {
+        color: green;
+    }
+}
