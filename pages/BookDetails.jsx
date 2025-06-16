@@ -28,6 +28,13 @@ export function BookDetails({ bookId, onBack }) {
         if (pageCount > 500) return `Serious Reading ${pageCount}`
     }
 
+    function getPublishedDate(publishedDate) {
+        const diff = new Date().getFullYear() - publishedDate
+
+        if (diff > 20) return `Vintage ${publishedDate}`
+        return `New ${publishedDate}`
+    }
+
     if (!book) return <div>Loading...</div>
     // const { vendor, speed } = book
     return (
@@ -44,7 +51,7 @@ export function BookDetails({ bookId, onBack }) {
                 </ul>
             </section>
 
-            <p>Published Date: {book.publishedDate}</p>
+            <p>Published Date: {getPublishedDate(book.publishedDate)}</p>
             <p>Page Count: {getPageCountDesc(book.pageCount)}</p>
             <p>Price: {book.listPrice.amount}</p>
             <button onClick={onBack}>Back</button>
