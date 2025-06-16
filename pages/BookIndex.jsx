@@ -1,6 +1,7 @@
 import { BookFilter } from "../components/BookFilter.jsx"
 import { BookList } from "../components/BookList.jsx"
 import { bookService } from "../services/book.service.js"
+import { BookDetails } from "./BookDetails.jsx"
 
 const { useState, useEffect, Fragment } = React
 
@@ -32,7 +33,7 @@ export function BookIndex() {
         setSelectedBookId(bookId)
     }
 
-    function onSetFilter(bodokId) {
+    function onSetFilter(filterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
@@ -40,6 +41,12 @@ export function BookIndex() {
 
     return (
         <section className="book-index">
+            {selectedBookId &&
+                <BookDetails
+                    bookId={selectedBookId}
+                    onBack={() => onSelectedBookId(null)}
+                />
+            }
             {!selectedBookId &&
                 <Fragment>
                     <BookFilter
