@@ -1,4 +1,5 @@
 import { BookPreview } from "../components/BookPreview.jsx"
+import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
@@ -52,7 +53,8 @@ export function BookDetails({ bookId, onBack }) {
 
             {book.listPrice.isOnSale && <span>On Sale</span>}
             <BookPreview book={book} />
-            <p>{book.description}</p>
+            <LongText txt={book.description} />
+            {/* <p>{book.description}</p> */}
 
             <section>
                 <h4>Authors</h4>

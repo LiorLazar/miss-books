@@ -1,0 +1,7 @@
+.long-text {
+    span {
+        background-color: lightgray;
+        padding-inline: 0.22rem;
+        border-radius: 4px;
+    }
+}
