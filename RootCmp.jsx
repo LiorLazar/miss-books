@@ -7,7 +7,7 @@ const { useState } = React
 
 export function RootCmp() {
 
-    const [page, setPage] = useState('home')
+    const [page, setPage] = useState('book')
 
     return (
         <section className="app">
