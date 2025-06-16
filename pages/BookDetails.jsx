@@ -22,6 +22,12 @@ export function BookDetails({ bookId, onBack }) {
             })
     }
 
+    function getPageCountDesc(pageCount) {
+        if (pageCount < 100) return `light Reading ${pageCount}`
+        if (pageCount > 200) return `Descent Reading ${pageCount}`
+        if (pageCount > 500) return `Serious Reading ${pageCount}`
+    }
+
     if (!book) return <div>Loading...</div>
     // const { vendor, speed } = book
     return (
@@ -34,12 +40,12 @@ export function BookDetails({ bookId, onBack }) {
             <section>
                 <h4>Authors:</h4>
                 <ul>
-                    {book.authors.map(author => <li>{author}</li>)}
+                    {book.authors.map(author => <li key={author}>{author}</li>)}
                 </ul>
             </section>
 
             <p>Published Date: {book.publishedDate}</p>
-            <p>Page Count: {book.pageCount}</p>
+            <p>Page Count: {getPageCountDesc(book.pageCount)}</p>
             <p>Price: {book.listPrice.amount}</p>
             <button onClick={onBack}>Back</button>
         </section>
