@@ -1,3 +1,4 @@
+import { About } from "./pages/About.jsx"
 import { Home } from "./pages/Home.jsx"
 
 const { useState } = React
@@ -11,6 +12,7 @@ export function RootCmp() {
 
             <main>
                 {page == 'home' && <Home />}
+                {page == 'about' && <About />}
             </main>
         </section>
     )
