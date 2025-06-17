@@ -14,7 +14,7 @@ export const bookService = {
 }
 
 function query(filterBy = {}) {
-    // console.log(filterBy);
+    console.log(filterBy)
 
     return storageService.query(BOOK_KEY)
         .then(books => {
