@@ -21,6 +21,18 @@ export function BookFilter({ defaultFilter, onSetFilter }) {
         })
     }
 
+    const [authors, setAuthors] = useState(null)
+    useEffect(() => {
+        loadAuthors()
+    }, [])
+
+    function loadAuthors() {
+        bookService.getAuthors().then(authors => {
+            console.log(authors)
+            setAuthors(authors)
+        })
+    }
+
     function handleChange({ target }) {
         console.log(target.name, target.value)
         const field = target.name
@@ -63,6 +75,14 @@ export function BookFilter({ defaultFilter, onSetFilter }) {
                     </li>
                 )}
             </ul>
+            <div>
+                <label htmlFor="authors-select">Choose a pet:</label>
+
+                <select name="txt" id="authors-select" onChange={handleChange}>
+                    <option value="">--Please choose an option--</option>
+                    {authors && authors.map(author => <option key={author} value={author}>{author}</option>)}
+                </select>
+            </div>
         </section>
     )
 }
