@@ -11,6 +11,7 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    getCategories
 }
 
 function query(filterBy = {}) {
@@ -58,6 +59,10 @@ function getEmptyBook(vendor = '', speed = '') {
 
 function getDefaultFilter() {
     return { txt: '', minPrice: '' }
+}
+getCategories()
+function getCategories() {
+    return query().then(books => [...new Set(books.flatMap(book => book.categories))])
 }
 
 function _createBooks() {
