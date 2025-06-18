@@ -18,6 +18,6 @@
 
     >a {
         cursor: pointer;
-        text-transform: capitalize;
+        text-transform: capitalize
     }
 }
