@@ -1,5 +1,7 @@
 import { AppHeader } from "./components/AppHeader.jsx"
 import { About } from "./pages/About.jsx"
+import { BookDetails } from "./pages/BookDetails.jsx"
+import { BookEdit } from "./pages/BookEdit.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { Home } from "./pages/Home.jsx"
 
@@ -20,6 +22,10 @@ export function RootCmp() {
                         <Route path='/home' element={<Home />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/book' element={<BookIndex />} />
+
+                        <Route path='/book/:carId' element={<BookDetails />} />
+                        <Route path='/book/edit' element={<BookEdit />} />
+                        <Route path='/book/edit/:carId' element={<BookEdit />} />
                     </Routes>
                 </main>
             </section>
