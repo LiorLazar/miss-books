@@ -2,24 +2,24 @@ import { BookPreview } from "../components/BookPreview.jsx"
 import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
 
+const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
-export function BookDetails({ bookId, onBack }) {
+export function BookDetails() {
 
     const [book, setBook] = useState(null)
+    const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadBook()
-    }, [])
+    }, [params.bookId])
 
     function loadBook() {
-        bookService.get(bookId)
-            .then(book => {
-                book.listPrice.isOnSale = true
-                setBook(book)
-            })
+        bookService.get(params.bookId)
+            .then(book => setBook(book))
             .catch(err => {
-                console.log('err:', err)
+                console.log('Cannot get book:', err)
             })
     }
 
@@ -42,11 +42,12 @@ export function BookDetails({ bookId, onBack }) {
         if (amount < 20) return 'green'
 
     }
-    //     amount > 150 - red
-    // - amount < 20 - gree
+
+    function onBack() {
+        navigate('/book')
+    }
 
     if (!book) return <div>Loading...</div>
-    // const { vendor, speed } = book
     return (
         <section className="book-details container">
             {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
@@ -54,7 +55,6 @@ export function BookDetails({ bookId, onBack }) {
             {book.listPrice.isOnSale && <span>On Sale</span>}
             <BookPreview book={book} />
             <LongText txt={book.description} />
-            {/* <p>{book.description}</p> */}
 
             <section>
                 <h4>Authors</h4>
