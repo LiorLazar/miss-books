@@ -12,7 +12,9 @@ export const bookService = {
     getEmptyBook,
     getDefaultFilter,
     getCategories,
-    getAuthors
+    getAuthors,
+    getEmptyReview,
+    addReview
 }
 
 function query(filterBy = {}) {
@@ -59,6 +61,10 @@ function getEmptyBook(vendor = '', speed = '') {
     return { vendor, speed }
 }
 
+function getEmptyReview(fullName = '', rating = '', readAt = '') {
+    return { fullName, rating, readAt }
+}
+
 function getDefaultFilter() {
     return { txt: '', minPrice: '' }
 }
@@ -96,7 +102,8 @@ function _createBooks() {
                     amount: utilService.getRandomIntInclusive(80, 500),
                     currencyCode: "EUR",
                     isOnSale: Math.random() > 0.7
-                }
+                },
+                reviews: null
             }
             books.push(book)
         }
@@ -114,4 +121,13 @@ function _setNextPrevBookId(book) {
         book.prevBookId = prevBook.id
         return book
     })
+}
+
+function addReview(bookId, review) {
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.push(review)
+            return save(book)
+        })
 }
