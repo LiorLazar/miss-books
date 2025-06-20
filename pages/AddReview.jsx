@@ -27,7 +27,7 @@ export function AddReview() {
             return
         }
         bookService.addReview(bookId, reviewToAdd)
-            .then(() => navigate('/book'))
+            .then(() => navigate(`/book/${bookId}`))
             .catch(err => {
                 console.log('Cannot save book:', err)
                 showErrorMsg('Cannot save book')

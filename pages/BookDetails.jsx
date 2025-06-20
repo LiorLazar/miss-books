@@ -2,6 +2,7 @@ import { AddReview } from "./AddReview.jsx"
 import { BookPreview } from "../components/BookPreview.jsx"
 import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
+import { ReviewList } from "../components/ReviewList.jsx"
 
 const { useParams, useNavigate, Link } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -9,12 +10,17 @@ const { useState, useEffect } = React
 export function BookDetails() {
 
     const [book, setBook] = useState(null)
+    const [refreshCount, setRefreshCount] = useState(0)
     const params = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadBook()
-    }, [params.bookId])
+    }, [params.bookId, refreshCount])
+
+    function refreshBook() {
+        setRefreshCount(count => count + 1)
+    }
 
     function loadBook() {
         bookService.get(params.bookId)
@@ -48,6 +54,14 @@ export function BookDetails() {
         navigate('/book')
     }
 
+    function onRemoveReview(idx) {
+        const updatedBook = { ...book }
+        updatedBook.reviews = updatedBook.reviews.filter((_, i) => i !== idx)
+        bookService.save(updatedBook)
+            .then(() => refreshBook())
+            .catch(err => console.log('Cannot remove review:', err))
+    }
+
     if (!book) return <div>Loading...</div>
     return (
         <section className="book-details container">
@@ -72,7 +86,7 @@ export function BookDetails() {
             <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
 
             <h1>Reviews:</h1>
-            {(!book.reviews || book.reviews.length === 0) && <div className="container">No Reviews to this book yet</div>}
+            <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
             <button><Link to={`/book/${book.id}/review`}>Add Review</Link></button>
         </section>
     )
