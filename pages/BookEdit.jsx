@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
@@ -23,7 +24,10 @@ export function BookEdit() {
         ev.preventDefault()
         bookService.save(bookToEdit)
             .then(() => navigate('/book'))
-            .catch(err => console.log('Cannot save book:', err))
+            .catch(err => {
+                console.log('Cannot save book:', err)
+                showErrorMsg('Cannot save book')
+            })
     }
     const bookFields = [
         { name: 'title', type: 'text' },
@@ -65,6 +69,4 @@ export function BookEdit() {
             </form>
         </section>
     )
-
-
 }
