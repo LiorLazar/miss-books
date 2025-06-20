@@ -67,6 +67,8 @@ export function BookDetails() {
             <p>Page Count: {getPageCountDesc(book.pageCount)}</p>
             <p>Price: <span className={`book-price ${getPriceClass(book.listPrice.amount)}`}>{book.listPrice.amount}</span></p>
             <button onClick={onBack}>Back</button>
+            <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
+            <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
         </section>
     )
 }
