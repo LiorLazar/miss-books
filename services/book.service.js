@@ -59,6 +59,10 @@ function getEmptyBook(vendor = '', speed = '') {
     return { vendor, speed }
 }
 
+function getEmptyReview(fullName = '', rating = '', readAt = '') {
+    return { fullName, rating, readAt }
+}
+
 function getDefaultFilter() {
     return { txt: '', minPrice: '' }
 }
