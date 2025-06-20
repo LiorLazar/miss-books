@@ -1,3 +1,4 @@
+import { AddReview } from "../components/AddReview.jsx"
 import { BookPreview } from "../components/BookPreview.jsx"
 import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
@@ -69,6 +70,8 @@ export function BookDetails() {
             <button onClick={onBack}>Back</button>
             <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
             <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
+
+            <AddReview />
         </section>
     )
 }
