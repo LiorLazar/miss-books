@@ -13,7 +13,8 @@ export const bookService = {
     getDefaultFilter,
     getCategories,
     getAuthors,
-    getEmptyReview
+    getEmptyReview,
+    addReview
 }
 
 function query(filterBy = {}) {
@@ -120,4 +121,13 @@ function _setNextPrevBookId(book) {
         book.prevBookId = prevBook.id
         return book
     })
+}
+
+function addReview(bookId, review) {
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.push(review)
+            return save(book)
+        })
 }

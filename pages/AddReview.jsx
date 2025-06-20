@@ -26,12 +26,7 @@ export function AddReview() {
             showErrorMsg('All fields are required!')
             return
         }
-        bookService.get(bookId)
-            .then(book => {
-                if (!book.reviews) book.reviews = []
-                book.reviews.push(reviewToAdd)
-                return bookService.save(book)
-            })
+        bookService.addReview(bookId, reviewToAdd)
             .then(() => navigate('/book'))
             .catch(err => {
                 console.log('Cannot save book:', err)
