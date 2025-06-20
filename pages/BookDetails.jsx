@@ -1,4 +1,4 @@
-import { AddReview } from "../components/AddReview.jsx"
+import { AddReview } from "./AddReview.jsx"
 import { BookPreview } from "../components/BookPreview.jsx"
 import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
@@ -71,7 +71,9 @@ export function BookDetails() {
             <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
             <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
 
-            <AddReview />
+            <h1>Reviews:</h1>
+            {(!book.reviews || book.reviews.length === 0) && <div className="container">No Reviews to this book yet</div>}
+            <button><Link to={`/book/${book.id}/review`}>Add Review</Link></button>
         </section>
     )
 }

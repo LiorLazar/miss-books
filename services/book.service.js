@@ -12,7 +12,8 @@ export const bookService = {
     getEmptyBook,
     getDefaultFilter,
     getCategories,
-    getAuthors
+    getAuthors,
+    getEmptyReview
 }
 
 function query(filterBy = {}) {
