@@ -1,26 +1,30 @@
-const { useEffect, useState } = React
-
 import { bookService } from "../services/book.service.js"
 
-export function BookEdit({ bookId, onBack }) {
-    const [book, setBook] = useState(null)
+const { useState, useEffect } = React
+const { useNavigate, useParams } = ReactRouterDOM
+
+export function BookEdit() {
+
+    const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+    const navigate = useNavigate()
+    const { bookId } = useParams
 
     useEffect(() => {
-        loadBook()
+        if (bookId) loadBook()
     }, [])
 
     function loadBook() {
         bookService.get(bookId)
-            .then(book => {
-
-                setBook(book)
-            })
-            .catch(err => {
-                console.log('err:', err)
-            })
+            .thne(book => setBookToEdit(book))
+            .catch(err => console.log('Cannot get book:', err))
     }
 
-
+    function onSaveBook(ev) {
+        ev.preventDefault()
+        bookService.save(bookToEdit)
+            .then(() => navigate('/book'))
+            .catch(err => console.log('Cannot save book:', err))
+    }
     const bookFields = [
         { name: 'title', type: 'text' },
         { name: 'publishedDate', type: 'number' },
@@ -39,32 +43,19 @@ export function BookEdit({ bookId, onBack }) {
                 value = target.checked
                 break
         }
-        setBook(prevBook => ({ ...prevBook, [field]: value }))
+        setBookToEdit(prevBook => ({ ...prevBook, [field]: value }))
     }
 
-    function onSaveBook() {
-        console.log(book);
-        bookService.save(book).then(() => {
-            onBack()
-
-        })
-
-    }
-
-    if (!book) return <div>Loading..</div>
     return (
-
         <section className="book-edit">
-            {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
-            <form action="">
-
+            <h1>{bookId ? 'Edit' : 'Add'} Book</h1>
+            <form onSubmit={onSaveBook}>
                 {bookFields.map(field => {
                     return <label key={field.name} htmlFor={field.name}>
                         {field.name}
-                        <input onChange={handleChange} type={field.type} name={field.name} value={book[field.name]} />
+                        <input onChange={handleChange} type={field.type} name={field.name} value={bookToEdit[field.name]} />
                     </label>
                 })}
-
                 <button onClick={(ev) => {
 
                     ev.preventDefault()
@@ -72,9 +63,8 @@ export function BookEdit({ bookId, onBack }) {
                 }
                 }>Save</button>
             </form>
-
-
-
         </section>
     )
+
+
 }
