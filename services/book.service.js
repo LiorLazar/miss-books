@@ -134,8 +134,8 @@ function addReview(bookId, review) {
         })
 }
 
-function getGoogleBooks() {
-    return axios.get('https://www.googleapis.com/books/v1/volumes?printType=books&q=effective%20javascript')
+function getGoogleBooks(query) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${query}`)
         .then((res) => {
             const books = res.data.items
             // const books = items.map(item => item.volumeInfo.title)
