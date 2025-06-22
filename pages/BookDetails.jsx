@@ -67,7 +67,7 @@ export function BookDetails() {
         <section className="book-details container">
             {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
 
-            {book.listPrice.isOnSale && <span>On Sale</span>}
+            {/* {book.listPrice.isOnSale && <span>On Sale</span>} */}
             <BookPreview book={book} />
             <LongText txt={book.description} />
 
@@ -78,9 +78,9 @@ export function BookDetails() {
                 </ul>
             </section>
 
-            <p>Published Date: {getPublishDate(book.publishedDate)}</p>
-            <p>Page Count: {getPageCountDesc(book.pageCount)}</p>
-            <p>Price: <span className={`book-price ${getPriceClass(book.listPrice.amount)}`}>{book.listPrice.amount}</span></p>
+            <p>Published Date: {getPublishDate(book.publishedDate) || ''}</p>
+            <p>Page Count: {getPageCountDesc(book.pageCount) || ''}</p>
+            {/* <p>Price: <span className={`book-price ${getPriceClass(book.listPrice.amount) || ''}`}>{book.listPrice.amount || ''}</span></p> */}
             <button onClick={onBack}>Back</button>
             <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
             <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
