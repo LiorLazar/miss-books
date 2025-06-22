@@ -1,5 +1,7 @@
 import { LongText } from "../components/LongText.jsx"
 
+const { Outlet, Link } = ReactRouterDOM
+
 export function About() {
 
     const txt = ` Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -9,6 +11,14 @@ export function About() {
         <section className="about container">
             <h1>About books and so...</h1>
             <LongText txt={txt} />
+
+            <nav>
+                <Link to="/about/team">Team</Link>
+                <Link to="/about/vision">Vision</Link>
+            </nav>
+            <section>
+                <Outlet />
+            </section>
         </section>
     )
 }
