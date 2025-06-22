@@ -59,8 +59,12 @@ function save(book) {
     }
 }
 
-function getEmptyBook(vendor = '', speed = '') {
-    return { vendor, speed }
+function getEmptyBook() {
+    return {
+        title: '',
+        publishedDate: '',
+        description: ''
+    }
 }
 
 function getEmptyReview(fullName = '', rating = '', readAt = '') {

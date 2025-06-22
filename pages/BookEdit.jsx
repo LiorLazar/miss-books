@@ -8,7 +8,7 @@ export function BookEdit() {
 
     const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
     const navigate = useNavigate()
-    const { bookId } = useParams
+    const { bookId } = useParams()
 
     useEffect(() => {
         if (bookId) loadBook()

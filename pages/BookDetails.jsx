@@ -11,19 +11,19 @@ export function BookDetails() {
 
     const [book, setBook] = useState(null)
     const [refreshCount, setRefreshCount] = useState(0)
-    const params = useParams()
+    const { bookId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadBook()
-    }, [params.bookId, refreshCount])
+    }, [bookId, refreshCount])
 
     function refreshBook() {
         setRefreshCount(count => count + 1)
     }
 
     function loadBook() {
-        bookService.get(params.bookId)
+        bookService.get(bookId)
             .then(book => setBook(book))
             .catch(err => {
                 console.log('Cannot get book:', err)
