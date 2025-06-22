@@ -1,3 +1,4 @@
+import { bookService } from "../services/book.service.js"
 
 const { useState, useEffect } = React
 
@@ -7,6 +8,18 @@ export function BookAdd({ defaultQuery, onSetQuery }) {
     useEffect(() => {
         onSetQuery(queryToEdit)
     }, [queryToEdit])
+
+    const [results, setResults] = useState(null)
+    useEffect(() => {
+        loadResults()
+    }, [])
+
+    function loadResults() {
+        bookService.getGoogleBooks().then(books => {
+            // console.log(categories)
+            setResults(books)
+        })
+    }
 
     function handleChange({ target }) {
         console.log(target.name, target.value)
@@ -31,7 +44,14 @@ export function BookAdd({ defaultQuery, onSetQuery }) {
                 <label htmlFor="txt">Search Book Name:
                     <input onChange={handleChange} value={txt} name="txt" id="txt" type="text" />
                 </label>
+                <ul>
+                    {results && results.map(result =>
+                        <li key={result.id}>{result.volumeInfo.title}
+                            <button>+</button>
+                        </li>
+                    )}
+                </ul>
             </form>
-        </section>
+        </section >
     )
 }

@@ -11,7 +11,7 @@ export function BookIndex() {
 
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState(null)
 
     useEffect(() => {
         loadBooks()
@@ -47,7 +47,7 @@ export function BookIndex() {
         <section className="book-index">
             <BookFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="container">
-                <BookAdd defaultQuery="" onSetQuery={onSetQuery} />
+                <BookAdd defaultQuery={{ txt: '' }} onSetQuery={onSetQuery} />
                 <Link to="/book/edit">Edit / Add Book Manually</Link>
             </section>
             <BookList onRemoveBook={onRemoveBook} books={books} />

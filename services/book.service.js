@@ -14,7 +14,8 @@ export const bookService = {
     getCategories,
     getAuthors,
     getEmptyReview,
-    addReview
+    addReview,
+    getGoogleBooks
 }
 
 function query(filterBy = {}) {
@@ -132,3 +133,14 @@ function addReview(bookId, review) {
             return save(book)
         })
 }
+
+function getGoogleBooks() {
+    return axios.get('https://www.googleapis.com/books/v1/volumes?printType=books&q=effective%20javascript')
+        .then((res) => {
+            const books = res.data.items
+            // const books = items.map(item => item.volumeInfo.title)
+            // console.log(books)
+            return books
+        })
+}
+
