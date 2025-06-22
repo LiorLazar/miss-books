@@ -18,7 +18,7 @@ export const bookService = {
 }
 
 function query(filterBy = {}) {
-    console.log(filterBy)
+    // console.log(filterBy)
 
     return storageService.query(BOOK_KEY)
         .then(books => {
@@ -68,6 +68,7 @@ function getEmptyReview(fullName = '', rating = '', readAt = '') {
 function getDefaultFilter() {
     return { txt: '', minPrice: '' }
 }
+
 function getCategories() {
     return query().then(books =>
         [...new Set(books.flatMap(book => book.categories))])
@@ -109,7 +110,7 @@ function _createBooks() {
         }
         saveToStorage(BOOK_KEY, books)
     }
-    console.log('books', books)
+    // console.log('books', books)
 }
 
 function _setNextPrevBookId(book) {

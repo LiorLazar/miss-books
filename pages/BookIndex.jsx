@@ -1,3 +1,4 @@
+import { BookAdd } from "../components/BookAdd.jsx"
 import { BookFilter } from "../components/BookFilter.jsx"
 import { BookList } from "../components/BookList.jsx"
 import { bookService } from "../services/book.service.js"
@@ -10,6 +11,7 @@ export function BookIndex() {
 
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [query, setQuery] = useState('')
 
     useEffect(() => {
         loadBooks()
@@ -23,7 +25,6 @@ export function BookIndex() {
                 showErrorMsg('Problem removing book')
             })
     }
-
     function onRemoveBook(bookId) {
         bookService.remove(bookId)
             .then(() => {
@@ -37,12 +38,17 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
+    function onSetQuery(query) {
+        setQuery(prevQuery => ({ ...prevQuery, ...query }))
+    }
+
     if (!books) return <div className="container">Loading...</div>
     return (
         <section className="book-index">
             <BookFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <section className="container">
-                <Link to="/book/edit">Add</Link>
+                <BookAdd defaultQuery="" onSetQuery={onSetQuery} />
+                <Link to="/book/edit">Edit / Add Book Manually</Link>
             </section>
             <BookList onRemoveBook={onRemoveBook} books={books} />
         </section>

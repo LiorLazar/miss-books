@@ -16,7 +16,7 @@ export function BookEdit() {
 
     function loadBook() {
         bookService.get(bookId)
-            .thne(book => setBookToEdit(book))
+            .then(book => setBookToEdit(book))
             .catch(err => console.log('Cannot get book:', err))
     }
 

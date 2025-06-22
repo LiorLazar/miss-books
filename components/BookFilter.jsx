@@ -16,7 +16,7 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
 
     function loadCategories() {
         bookService.getCategories().then(categories => {
-            console.log(categories)
+            // console.log(categories)
             setCategories(categories)
         })
     }
@@ -28,7 +28,7 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
 
     function loadAuthors() {
         bookService.getAuthors().then(authors => {
-            console.log(authors)
+            // console.log(authors)
             setAuthors(authors)
         })
     }
@@ -76,7 +76,7 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
                 )}
             </ul>
             <div>
-                <label htmlFor="authors-select">Choose a pet:</label>
+                <label htmlFor="authors-select">Choose an author:</label>
 
                 <select name="txt" id="authors-select" onChange={handleChange}>
                     <option value="">--Please choose an option--</option>

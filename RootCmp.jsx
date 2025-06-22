@@ -6,6 +6,7 @@ import { BookIndex } from "./pages/BookIndex.jsx"
 import { Home } from "./pages/Home.jsx"
 import { UserMsg } from "./components/UserMsg.jsx"
 import { AddReview } from "./pages/AddReview.jsx"
+import { BookAdd } from "./components/BookAdd.jsx"
 
 const { useState } = React
 const Router = ReactRouterDOM.HashRouter
@@ -29,6 +30,7 @@ export function RootCmp() {
                         <Route path='/book/:bookId/review' element={<AddReview />} />
                         <Route path='/book/edit' element={<BookEdit />} />
                         <Route path='/book/edit/:bookId' element={<BookEdit />} />
+                        <Route path='/book/add' element={<BookAdd />} />
                     </Routes>
                 </main>
                 <UserMsg />
