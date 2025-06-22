@@ -15,11 +15,12 @@ export const bookService = {
     getAuthors,
     getEmptyReview,
     addReview,
-    getGoogleBooks
+    getGoogleBooks,
+    addGoogleBook
 }
 
 function query(filterBy = {}) {
-    // console.log(filterBy)
+    console.log(filterBy)
 
     return storageService.query(BOOK_KEY)
         .then(books => {
@@ -142,5 +143,26 @@ function getGoogleBooks(query) {
             // console.log(books)
             return books
         })
+}
+
+function addGoogleBook(bookToAdd) {
+    // console.log(book)
+    let books = loadFromStorage(BOOK_KEY)
+    const book = {
+        id: bookToAdd.id,
+        title: bookToAdd.volumeInfo.title,
+        subtitle: bookToAdd.volumeInfo.subtitle,
+        authors: bookToAdd.volumeInfo.authors,
+        publishedDate: bookToAdd.volumeInfo.publishedDate,
+        description: bookToAdd.volumeInfo.description,
+        pageCount: bookToAdd.volumeInfo.pageCount,
+        categories: bookToAdd.volumeInfo.categories,
+        thumbnail: bookToAdd.volumeInfo.imageLinks.smallThumbnail,
+        language: bookToAdd.volumeInfo.language,
+        reviews: null
+    }
+    books.push(book)
+    // console.log(books)
+    saveToStorage(BOOK_KEY, books)
 }
 

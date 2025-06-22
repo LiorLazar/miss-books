@@ -40,7 +40,7 @@ export function BookIndex() {
     if (!books) return <div className="container">Loading...</div>
     return (
         <section className="book-index">
-            <BookFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+            <BookFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} />
             <section className="container">
                 <BookAdd defaultQuery={{ txt: '' }} />
                 <Link to="/book/edit">Edit / Add Book Manually</Link>

@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
 
@@ -35,6 +36,10 @@ export function BookAdd({ defaultQuery }) {
         }
         setQueryToEdit(prevQuery => ({ ...prevQuery, [field]: value }))
     }
+    function onAddGoogleBook(book) {
+        bookService.addGoogleBook(book)
+        showSuccessMsg('Book added successfully!')
+    }
     const { txt } = queryToEdit
     return (
         <section className="book-add container">
@@ -47,7 +52,7 @@ export function BookAdd({ defaultQuery }) {
                 <ul className="google-books-results">
                     {results.map((book, idx) => (
                         <li key={idx}>{book.volumeInfo.title}
-                            <button>+</button></li>
+                            <button onClick={() => onAddGoogleBook(book)}>+</button></li>
                     ))}
                 </ul>
             )}
