@@ -10,7 +10,6 @@ import { BookAdd } from "./components/BookAdd.jsx"
 import { Team } from "./components/Team.jsx"
 import { Vision } from "./components/Vision.jsx"
 
-const { useState } = React
 const Router = ReactRouterDOM.HashRouter
 
 const { Routes, Route, Navigate } = ReactRouterDOM
