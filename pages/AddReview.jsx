@@ -9,16 +9,6 @@ export function AddReview() {
     const { bookId } = useParams()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (bookId) loadBook()
-    }, [])
-
-    function loadBook() {
-        bookService.get(bookId)
-            .then(book => setBookToEdit(book))
-            .catch(err => console.log('Cannot get book:', err))
-    }
-
     function onSaveBook(ev) {
         ev.preventDefault()
         // Validate fields are not empty
@@ -27,7 +17,7 @@ export function AddReview() {
             return
         }
         bookService.addReview(bookId, reviewToAdd)
-            .then(() => navigate(`/book/${bookId}`))
+            .then(() => navigate(`/book/${bookId}`, { state: { refresh: true } }))
             .catch(err => {
                 console.log('Cannot save book:', err)
                 showErrorMsg('Cannot save book')

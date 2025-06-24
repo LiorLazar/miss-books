@@ -3,7 +3,7 @@ import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
 import { ReviewList } from "../components/ReviewList.jsx"
 
-const { useParams, useNavigate, Link } = ReactRouterDOM
+const { useParams, useNavigate, Link, Outlet, useLocation } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function BookDetails() {
@@ -12,10 +12,18 @@ export function BookDetails() {
     const [refreshCount, setRefreshCount] = useState(0)
     const { bookId } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         loadBook()
     }, [bookId, refreshCount])
+
+    useEffect(() => {
+        if (location.state && location.state.refresh) {
+            refreshBook()
+            navigate(location.pathname, { replace: true, state: {} })
+        }
+    }, [location])
 
     function refreshBook() {
         setRefreshCount(count => count + 1)
@@ -61,6 +69,21 @@ export function BookDetails() {
             .catch(err => console.log('Cannot remove review:', err))
     }
 
+    function onSaveReview(ev) {
+        ev.preventDefault()
+        // Validate fields are not empty
+        if (!reviewToAdd.fullName || !reviewToAdd.rating || !reviewToAdd.readAt) {
+            showErrorMsg('All fields are required!')
+            return
+        }
+        bookService.addReview(bookId, reviewToAdd)
+            .then(() => navigate(`/book/${bookId}`))
+            .catch(err => {
+                console.log('Cannot save book:', err)
+                showErrorMsg('Cannot save book')
+            })
+    }
+
     if (!book) return <div>Loading...</div>
     return (
         <section className="book-details container">
@@ -88,6 +111,7 @@ export function BookDetails() {
             <h1>Reviews:</h1>
             <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
             <button><Link to={`/book/${book.id}/review`}>Add Review</Link></button>
+            <Outlet context={onSaveReview} />
         </section>
     )
 }
