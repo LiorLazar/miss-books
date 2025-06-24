@@ -1,5 +1,5 @@
 import { bookService } from "../services/book.service.js"
-import { showSuccessMsg } from "../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
 
@@ -38,7 +38,8 @@ export function BookAdd({ defaultQuery }) {
     }
     function onAddGoogleBook(book) {
         bookService.addGoogleBook(book)
-        showSuccessMsg('Book added successfully!')
+            .than(showSuccessMsg('Book added successfully!'))
+            .catch(showErrorMsg('Adding Book Failed'))
     }
     const { txt } = queryToEdit
     return (

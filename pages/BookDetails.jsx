@@ -1,4 +1,3 @@
-import { AddReview } from "./AddReview.jsx"
 import { BookPreview } from "../components/BookPreview.jsx"
 import { LongText } from "../components/LongText.jsx"
 import { bookService } from "../services/book.service.js"
