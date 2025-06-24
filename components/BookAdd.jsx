@@ -37,9 +37,9 @@ export function BookAdd({ defaultQuery }) {
         setQueryToEdit(prevQuery => ({ ...prevQuery, [field]: value }))
     }
     function onAddGoogleBook(book) {
-        bookService.addGoogleBook(book)
-            .than(showSuccessMsg('Book added successfully!'))
-            .catch(showErrorMsg('Adding Book Failed'))
+        const newBook = bookService.addGoogleBook(book)
+        if (newBook) showSuccessMsg('Book added successfully!')
+        else (showErrorMsg('Adding Book Failed'))
     }
     const { txt } = queryToEdit
     return (
