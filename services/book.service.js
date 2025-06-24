@@ -165,8 +165,10 @@ function addGoogleBook(bookToAdd) {
         language: bookToAdd.volumeInfo.language,
         reviews: null
     }
+    console.log(book)
     books.push(book)
     // console.log(books)
     saveToStorage(BOOK_KEY, books)
+    return book
 }
 

@@ -21,6 +21,7 @@ export function BookEdit() {
     }
 
     function onSaveBook(ev) {
+        console.log('ev:', ev)
         ev.preventDefault()
         bookService.save(bookToEdit)
             .then(() => navigate('/book'))
@@ -60,13 +61,8 @@ export function BookEdit() {
                         <input onChange={handleChange} type={field.type} name={field.name} value={bookToEdit[field.name]} />
                     </label>
                 })}
-                <button onClick={(ev) => {
-
-                    ev.preventDefault()
-                    onSaveBook()
-                }
-                }>Save</button>
+                <button onClick={onSaveBook}>Save</button>
             </form>
-        </section>
+        </section >
     )
 }

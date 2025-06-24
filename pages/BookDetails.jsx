@@ -80,10 +80,11 @@ export function BookDetails() {
             <p>Published Date: {getPublishDate(book.publishedDate) || ''}</p>
             <p>Page Count: {getPageCountDesc(book.pageCount) || ''}</p>
             {/* <p>Price: <span className={`book-price ${getPriceClass(book.listPrice.amount) || ''}`}>{book.listPrice.amount || ''}</span></p> */}
-            <button onClick={onBack}>Back</button>
-            <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
-            <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
-
+            <div className="buttons-container">
+                <button onClick={onBack}>Back</button>
+                <button><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
+                <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
+            </div>
             <h1>Reviews:</h1>
             <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
             <button><Link to={`/book/${book.id}/review`}>Add Review</Link></button>
