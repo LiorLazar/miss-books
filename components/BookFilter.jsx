@@ -63,18 +63,13 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
                 <input onChange={handleChange} value={minPrice || ''} name="minPrice" id="minPrice" type="number" />
             </form>
 
-            <ul>
-                {categories && categories.map(category =>
-                    <li onClick={() => {
-                        const target = {
-                            name: 'txt',
-                            value: category
-                        }
-                        handleChange({ target })
-                    }} key={category}>{category}
-                    </li>
-                )}
-            </ul>
+            <div>
+                <label htmlFor="category-select"> Choose an category: </label>
+                <select name="txt" id="authors-select" onChange={handleChange}>
+                    <option value="">--Please choose an option--</option>
+                    {categories && categories.map(category => <option key={category} value={category}>{category}</option>)}
+                </select>
+            </div>
             <div>
                 <label htmlFor="authors-select">Choose an author:</label>
 
@@ -83,6 +78,6 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
                     {authors && authors.map(author => <option key={author} value={author}>{author}</option>)}
                 </select>
             </div>
-        </section>
+        </section >
     )
 }
