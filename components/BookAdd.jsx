@@ -3,7 +3,7 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function BookAdd({ defaultQuery }) {
+export function BookAdd({ defaultQuery, onAddBook }) {
     const [queryToEdit, setQueryToEdit] = useState({ ...defaultQuery })
     const [results, setResults] = useState([])
     const timeoutRef = useRef()
@@ -38,7 +38,10 @@ export function BookAdd({ defaultQuery }) {
     }
     function onAddGoogleBook(book) {
         const newBook = bookService.addGoogleBook(book)
-        if (newBook) showSuccessMsg('Book added successfully!')
+        if (newBook) {
+            showSuccessMsg('Book added successfully!')
+            if (onAddBook) onAddBook()
+        }
         else (showErrorMsg('Adding Book Failed'))
     }
     const { txt } = queryToEdit

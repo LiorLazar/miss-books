@@ -37,12 +37,16 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
+    function onAddBook() {
+        loadBooks()
+    }
+
     if (!books) return <div className="container">Loading...</div>
     return (
         <section className="book-index">
             <BookFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} />
             <section className="container">
-                <BookAdd defaultQuery={{ txt: '' }} />
+                <BookAdd defaultQuery={{ txt: '' }} onAddBook={onAddBook} />
                 <Link to="/book/edit">Edit / Add Book Manually</Link>
             </section>
             <BookList onRemoveBook={onRemoveBook} books={books} />
